@@ -27,3 +27,12 @@ $ docker stop $(docker ps -q)
 
 1. Open a browser to http://localhost:3000 and log in initially with the username "admin" and password "admin". You will then be prompted to create a new password for the admin user.
 2. A dashboard called "MC Monitor" is provisioned and can be accessed in the dashboards section. That dashboard uses the Prometheus datasource that was provisioned.
+
+## Displaying Metrics
+
+With the monitor running and the MC Monitor dashboard opened on Grafana, there should be four default panels displayed. 
+1. Click on the dropdown next to either *Minecraft Service - CPU Usage* or *Minecraft Service - Memory Usage*, and hit *Edit* in order to change the metrics displayed.
+2. Under *Metrics browser*, you can 1. select a metric to monitor, 2. select which label the metric will measure - **unless there's not a default option, hit ID and scroll to the docker process corresponding to _itzg_minecraft_server_**.
+
+## Testing
+to be completed
