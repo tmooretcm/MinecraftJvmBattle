@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mc-monitor
+  labels:
+    app: mc-monitor
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: mc-monitor
+      labels:
+        app: mc-monitor
+    spec:
+      containers:
+        - name: main
+          image: itzg/mc-monitor
+          env:
+            - name: DEBUG
+              value: "true"
+            - name: EXPORT_SERVERS
+              value: mc.hypixel.net,play.cubecraft.net
+            - name: EXPORT_BEDROCK_SERVERS
+              value: play.fallentech.io
+          args:
+            - export-for-prometheus
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: mc-monitor
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc-monitor
+spec:
+  selector:
+    app: mc-monitor
+  ports:
+    - port: 8080
