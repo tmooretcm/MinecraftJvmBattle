@@ -12,6 +12,8 @@ The goal of this project is to measure the performance differences in Minecraft 
 
 Make sure that [Prometheus](https://prometheus.io/docs/prometheus/latest/installation/), [Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/), and [Docker](https://docs.docker.com/get-docker/) are all installed. Once done, clone this repo.
 
+After this, you will have to expose Docker for Prometheus metrics scraping. Follow only the **Configure Docker** section of this [guide](https://docs.docker.com/config/daemon/prometheus/).
+
 #### Running the monitor with Docker
 
 1. Access the /mc/mc-monitor/examples/mc-monitor-prom/ directory.
