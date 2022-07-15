@@ -12,6 +12,10 @@ The goal of this project is to measure the performance differences in Minecraft 
 
 Make sure that [Prometheus](https://prometheus.io/docs/prometheus/latest/installation/), [Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/), and [Docker](https://docs.docker.com/get-docker/) are all installed. Once done, clone this repo.
 
+After this, you will have to expose Docker for Prometheus metrics scraping. Follow only the **Configure Docker** section of this [guide](https://docs.docker.com/config/daemon/prometheus/).
+
+Next, you will have to include this repo for file sharing with Docker. Navigate to Settings > Resources > File Sharing and add this repository's directory (it will add all subdirectories) to enable proper usage. Example path added to file sharing: /Users/tmooretcm/Minecraft-OpenJ9-Project.
+
 #### Running the monitor with Docker
 
 1. Access the /mc/mc-monitor/examples/mc-monitor-prom/ directory.
@@ -21,7 +25,7 @@ $ docker-compose up -d
 ```
 3. To stop the monitor, run the following command:
 ```
-$ docker stop $(docker ps -q)
+$ docker-compose down
 ```
 #### Accessing Grafana
 
