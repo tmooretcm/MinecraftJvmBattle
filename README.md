@@ -25,7 +25,7 @@ $ docker-compose up -d
 ```
 3. To stop the monitor, run the following command:
 ```
-$ docker stop $(docker ps -q)
+$ docker-compose down
 ```
 #### Accessing Grafana
 
