@@ -1,23 +1,35 @@
 version: '3'
 
 services:
-  mc:
+  openj9:
     image: itzg/minecraft-server:java17-openj9
+    container_name: openj9-server
     environment:
       EULA: "true"
       MEMORY: 2G
     ports:
       - "25565:25565"
     volumes:
-      - mc-data:/data
+      - openj9-data:/data
+  hotspot:
+    image: itzg/minecraft-server:latest
+    container_name: hotspot-server
+    environment:
+      EULA: "true"
+      MEMORY: 2G
+    ports:
+      - "25566:25566"
+    volumes:
+      - hotspot-data:/data
   monitor:
     image: itzg/mc-monitor
-    command: export-for-prometheus
+    command: export-for-prometheus -servers hotspot:25566
     environment:
-      EXPORT_SERVERS: mc
+      EXPORT_SERVERS: openj9
       DEBUG: "true"
     depends_on:
-      - mc
+      - openj9
+      - hotspot
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
     ports:
@@ -47,6 +59,7 @@ services:
 
 
 volumes:
-  mc-data: {}
+  openj9-data: {}
   prometheus-tsdb: {}
   grafana-lib: {}
+  hotspot-data: {}

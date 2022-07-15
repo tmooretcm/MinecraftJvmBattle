@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1657909704024,
+  "iteration": 1657912602933,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -116,7 +116,7 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
-      "description": "",
+      "description": "OpenJ9 vs Hotspot JVM Performance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -124,7 +124,7 @@
           },
           "custom": {
             "axisLabel": "",
-            "axisPlacement": "auto",
+            "axisPlacement": "left",
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -220,10 +220,22 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"mc-monitor-prom_mc_1\"}[$__interval])",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"openj9-server\"}[$__interval])",
           "interval": "",
-          "legendFormat": "usage time",
-          "refId": "A"
+          "legendFormat": "openj9",
+          "refId": "CPU Usage - OpenJ9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"hotspot-server\"}[$__interval])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "hotspot",
+          "refId": "CPU Usage - Hotspot"
         }
       ],
       "title": "CPU Usage in Seconds",
@@ -234,7 +246,7 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
-      "description": "",
+      "description": "OpenJ9 vs Hotspot JVM Performance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -315,13 +327,25 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "container_memory_usage_bytes{name=\"mc-monitor-prom_mc_1\"}",
+          "expr": "container_memory_usage_bytes{name=\"openj9-server\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "usage in bytes",
-          "refId": "A"
+          "legendFormat": "openj9",
+          "refId": "Memory - OpenJ9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "container_memory_usage_bytes{name=\"hotspot-server\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "hotspot",
+          "refId": "Memory - Hotspot"
         }
       ],
       "title": "Minecraft Server Container Memory Usage",
@@ -332,6 +356,7 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "description": "OpenJ9 vs Hotspot JVM Performance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -408,11 +433,24 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "minecraft_status_response_time_seconds{job=\"mc-monitor\"}",
+          "expr": "minecraft_status_response_time_seconds{server_host=\"openj9\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "response time in seconds",
-          "refId": "A"
+          "intervalFactor": 1,
+          "legendFormat": "openj9",
+          "refId": "Server Response Time - OpenJ9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "minecraft_status_response_time_seconds{server_host=\"hotspot\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "hotspot",
+          "refId": "Server Response Time - Hotspot"
         }
       ],
       "title": "Minecraft Server Response Time",
@@ -461,6 +499,6 @@
   "timezone": "",
   "title": "MC Monitor",
   "uid": "PpzSgJAnk",
-  "version": 3,
+  "version": 5,
   "weekStart": ""
 }
