@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1641155749460,
+  "iteration": 1657909704024,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -159,7 +159,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": [
           {
@@ -211,6 +212,7 @@
           "mode": "single"
         }
       },
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "datasource": {
@@ -218,25 +220,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "minecraft_status_players_online_count{server_host=\"$server\"}",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"mc-monitor-prom_mc_1\"}[$__interval])",
           "interval": "",
-          "legendFormat": "online",
+          "legendFormat": "usage time",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "exemplar": true,
-          "expr": "minecraft_status_players_max_count{server_host=\"$server\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "max",
-          "refId": "B"
         }
       ],
-      "title": "Players",
+      "title": "CPU Usage in Seconds",
       "type": "timeseries"
     },
     {
@@ -244,13 +234,14 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
-            "axisLabel": "cores",
+            "axisLabel": "bytes",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -262,6 +253,9 @@
               "viz": false
             },
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -291,7 +285,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "decbytes"
         },
         "overrides": []
       },
@@ -302,6 +297,7 @@
         "y": 7
       },
       "id": 6,
+      "maxDataPoints": 60,
       "options": {
         "legend": {
           "calcs": [],
@@ -319,14 +315,16 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "rate(container_cpu_user_seconds_total{container_label_com_docker_compose_service=\"$server\"}[$__rate_interval])",
+          "expr": "container_memory_usage_bytes{name=\"mc-monitor-prom_mc_1\"}",
           "format": "time_series",
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{container_label_com_docker_compose_service}}",
+          "intervalFactor": 1,
+          "legendFormat": "usage in bytes",
           "refId": "A"
         }
       ],
-      "title": "Minecraft Service - CPU Usage",
+      "title": "Minecraft Server Container Memory Usage",
       "type": "timeseries"
     },
     {
@@ -340,6 +338,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -381,7 +380,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "s"
         },
         "overrides": []
       },
@@ -409,18 +408,18 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "container_memory_usage_bytes{container_label_com_docker_compose_service=\"$server\"}",
+          "expr": "minecraft_status_response_time_seconds{job=\"mc-monitor\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "{{container_label_com_docker_compose_service}}",
+          "legendFormat": "response time in seconds",
           "refId": "A"
         }
       ],
-      "title": "Minecraft Service - Memory Usage",
+      "title": "Minecraft Server Response Time",
       "type": "timeseries"
     }
   ],
-  "refresh": "1m",
+  "refresh": "10s",
   "schemaVersion": 34,
   "style": "dark",
   "tags": [],
@@ -455,7 +454,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},

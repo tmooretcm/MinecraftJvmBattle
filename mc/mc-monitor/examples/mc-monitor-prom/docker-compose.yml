@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mc:
-    image: itzg/minecraft-server
+    image: itzg/minecraft-server:java17-openj9
     environment:
       EULA: "true"
       MEMORY: 2G
