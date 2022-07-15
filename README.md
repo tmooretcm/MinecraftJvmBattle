@@ -14,6 +14,8 @@ Make sure that [Prometheus](https://prometheus.io/docs/prometheus/latest/install
 
 After this, you will have to expose Docker for Prometheus metrics scraping. Follow only the **Configure Docker** section of this [guide](https://docs.docker.com/config/daemon/prometheus/).
 
+Next, you will have to include this repo for file sharing with Docker. Navigate to Settings > Resources > File Sharing and add this repository's directory (it will add all subdirectories) to enable proper usage. Example path added to file sharing: /Users/tmooretcm/Minecraft-OpenJ9-Project.
+
 #### Running the monitor with Docker
 
 1. Access the /mc/mc-monitor/examples/mc-monitor-prom/ directory.
