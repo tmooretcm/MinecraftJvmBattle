@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1657912602933,
+  "iteration": 1658502878597,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -102,10 +102,22 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "minecraft_status_healthy{server_host=\"$server\",server_version=~\".+\"}",
+          "expr": "minecraft_status_healthy{server_host=\"hotspot\"}",
           "interval": "",
-          "legendFormat": "{{server_host}}",
+          "legendFormat": "hotspot",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "minecraft_status_healthy{server_host=\"openj9\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "openj9",
+          "refId": "B"
         }
       ],
       "title": "Healthy",
@@ -462,43 +474,16 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "selected": false,
-          "text": "mc",
-          "value": "mc"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
-        "definition": "label_values(server_host)",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "server",
-        "options": [],
-        "query": {
-          "query": "label_values(server_host)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      }
-    ]
+    "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-2m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "MC Monitor",
   "uid": "PpzSgJAnk",
-  "version": 5,
+  "version": 7,
   "weekStart": ""
 }

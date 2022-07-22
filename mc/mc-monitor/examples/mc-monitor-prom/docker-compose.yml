@@ -18,14 +18,14 @@ services:
       EULA: "true"
       MEMORY: 2G
     ports:
-      - "25566:25566"
+      - "25566:25565"
     volumes:
       - hotspot-data:/data
   monitor:
     image: itzg/mc-monitor
-    command: export-for-prometheus -servers hotspot:25566
+    command: export-for-prometheus
     environment:
-      EXPORT_SERVERS: openj9
+      EXPORT_SERVERS: openj9,hotspot
       DEBUG: "true"
     depends_on:
       - openj9
@@ -59,7 +59,7 @@ services:
 
 
 volumes:
+  hotspot-data: {}
   openj9-data: {}
   prometheus-tsdb: {}
   grafana-lib: {}
-  hotspot-data: {}
