@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Minecraft-OpenJ9-Project</groupId>
+  <artifactId>Minecraft-OpenJ9-Project</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <sourceDirectory>mc/mc-monitor/examples/mc-monitor-prom/Testing/src</sourceDirectory>
+    <testSourceDirectory>mc/mc-monitor/examples/mc-monitor-prom/Testing/test</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>io.prometheus</groupId>
+  		<artifactId>simpleclient</artifactId>
+  		<version>0.16.0</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java -->
+	<dependency>
+    	<groupId>com.github.docker-java</groupId>
+    	<artifactId>docker-java</artifactId>
+    	<version>3.2.13</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java-transport-httpclient5 -->
+	<dependency>
+    	<groupId>com.github.docker-java</groupId>
+    	<artifactId>docker-java-transport-httpclient5</artifactId>
+    	<version>3.2.13</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+	<dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-api</artifactId>
+    	<version>1.7.36</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-simple</artifactId>
+    	<version>1.7.36</version>
+	</dependency>
+  </dependencies>
+</project>
