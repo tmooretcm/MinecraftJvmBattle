@@ -1,7 +1,9 @@
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.HashMap; 
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallbackTemplate;
@@ -15,7 +17,7 @@ import com.github.dockerjava.core.DockerClientBuilder;
 public class PrometheusMetricsExporter {
 	
 	static DockerClient dockerClient;
-	static String containerID;
+	static HashMap<String, String> containerIDs = new HashMap<String, String>(); 
 	
 	/**
 	 * sets up the docker
@@ -29,20 +31,40 @@ public class PrometheusMetricsExporter {
         System.out.println(containerList);
         for(Container c : containerList) {
         	System.out.println(c.getImage() + ": " + c.getImageId());
-        	if(c.getImage().equals("itzg/minecraft-server")) {
-        		containerID = c.getId();
+        	if(c.getImage().contains("itzg/minecraft-server")) {
+        		containerIDs.put(c.getImage(), c.getId()); 
         	}
         }
-        if(containerID == null) {
+        if(containerIDs.isEmpty()) {
         	throw new Exception("Can't find minecraft server in docker");
         }
+	}
+	
+	public static HashMap<String, String> getIDs() throws Exception {
+		dockerClient = DockerClientBuilder.getInstance().build();
+		Info info = dockerClient.infoCmd().exec();
+        System.out.println(info);
+        List<Container> containerList = dockerClient.listContainersCmd().exec();
+        System.out.println(containerList);
+        for(Container c : containerList) {
+        	System.out.println(c.getImage() + ": " + c.getImageId());
+        	if(c.getImage().equals("itzg/minecraft-server")) {
+        		containerIDs.put(c.getImage(), c.getId()); 
+        	}
+        }
+        if(containerIDs.isEmpty()) {
+        	throw new Exception("Can't find minecraft server in docker");
+        }
+        return containerIDs; 
 	}
 	
 	public static void main(String[] args) throws Exception {
 		setup();
 		
-		Optional<Statistics> stats = getContainerStats(containerID);
-		System.out.println(stats.get().toString());
+		for(Map.Entry<String, String> container: containerIDs.entrySet()) {
+			Optional<Statistics> stats = getContainerStats(container.getValue());
+			System.out.println(stats.get().toString());
+		}
 	}
 	
 	/**
