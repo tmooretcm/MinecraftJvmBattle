@@ -17,7 +17,8 @@ import com.github.dockerjava.core.DockerClientBuilder;
 public class PrometheusMetricsExporter {
 	
 	static DockerClient dockerClient;
-	static HashMap<String, String> containerIDs = new HashMap<String, String>(); 
+	static String hotspotContainerID;
+	static String openj9ContainerID;
 	
 	/**
 	 * sets up the docker
@@ -26,45 +27,31 @@ public class PrometheusMetricsExporter {
 	public static void setup() throws Exception {
 		dockerClient = DockerClientBuilder.getInstance().build();
 		Info info = dockerClient.infoCmd().exec();
-        System.out.println(info);
         List<Container> containerList = dockerClient.listContainersCmd().exec();
-        System.out.println(containerList);
         for(Container c : containerList) {
-        	System.out.println(c.getImage() + ": " + c.getImageId());
-        	if(c.getImage().contains("itzg/minecraft-server")) {
-        		containerIDs.put(c.getImage(), c.getId()); 
+        	System.out.println(c);
+        	c.getNames();
+        	if(c.getImage().equals("itzg/minecraft-server:latest")) {
+        		hotspotContainerID = c.getId();
+        	}
+        	else if(c.getImage().equals("itzg/minecraft-server:java17-openj9")) {
+        		openj9ContainerID = c.getId();
         	}
         }
-        if(containerIDs.isEmpty()) {
-        	throw new Exception("Can't find minecraft server in docker");
+        if(hotspotContainerID == null) {
+        	throw new Exception("Can't find hotspot minecraft server in docker");
         }
-	}
-	
-	public static HashMap<String, String> getIDs() throws Exception {
-		dockerClient = DockerClientBuilder.getInstance().build();
-		Info info = dockerClient.infoCmd().exec();
-        System.out.println(info);
-        List<Container> containerList = dockerClient.listContainersCmd().exec();
-        System.out.println(containerList);
-        for(Container c : containerList) {
-        	System.out.println(c.getImage() + ": " + c.getImageId());
-        	if(c.getImage().equals("itzg/minecraft-server")) {
-        		containerIDs.put(c.getImage(), c.getId()); 
-        	}
-        }
-        if(containerIDs.isEmpty()) {
-        	throw new Exception("Can't find minecraft server in docker");
+        if(openj9ContainerID == null) {
+        	throw new Exception("Can't find openj9 minecraft server in docker");
         }
         return containerIDs; 
 	}
 	
 	public static void main(String[] args) throws Exception {
 		setup();
-		
-		for(Map.Entry<String, String> container: containerIDs.entrySet()) {
-			Optional<Statistics> stats = getContainerStats(container.getValue());
-			System.out.println(stats.get().toString());
-		}
+		Optional<Statistics> hsStats = getContainerStats(hotspotContainerID);
+		Optional<Statistics> j9Stats = getContainerStats(openj9ContainerID);
+		System.out.println(stats.get().toString());
 	}
 	
 	/**
