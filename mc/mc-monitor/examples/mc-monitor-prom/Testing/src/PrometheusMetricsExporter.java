@@ -1,9 +1,7 @@
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.HashMap; 
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallbackTemplate;
@@ -44,14 +42,14 @@ public class PrometheusMetricsExporter {
         if(openj9ContainerID == null) {
         	throw new Exception("Can't find openj9 minecraft server in docker");
         }
-        return containerIDs; 
 	}
 	
 	public static void main(String[] args) throws Exception {
 		setup();
 		Optional<Statistics> hsStats = getContainerStats(hotspotContainerID);
 		Optional<Statistics> j9Stats = getContainerStats(openj9ContainerID);
-		System.out.println(stats.get().toString());
+		System.out.println(hsStats.get().toString());
+		System.out.println(j9Stats.get().toString());
 	}
 	
 	/**
