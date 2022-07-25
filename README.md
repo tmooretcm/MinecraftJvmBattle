@@ -39,4 +39,4 @@ With the monitor running and the MC Monitor dashboard opened on Grafana, there s
 2. Under *Metrics browser*, you can 1. select a metric to monitor, 2. select which label the metric will measure - **unless there's not a default option, hit ID and scroll to the docker process corresponding to _itzg_minecraft_server_**.
 
 ## Testing
-to be completed
+Currently, the tests can be run using Eclipse after importing the project. You can right-click the UnitTesting.java class -> Run As -> JUnit to run the tests and view the output.
