@@ -1,10 +1,10 @@
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.*;
 
 import com.github.dockerjava.api.model.Statistics;
 
-class UnitTesting {
+public class TestMetrics {
 	
 	static String hotspotContainerID; 
 	static String openj9ContainerID;
@@ -54,6 +54,7 @@ class UnitTesting {
 		assertNotNull(openJ9Memory);
 		
 		System.out.println("Memory Usage Results:" + "\n" + "HotSpot: " + hotspotMemory + "\n" + "OpenJ9: " + openJ9Memory);	
+		assertTrue(hotspotMemory > openJ9Memory); 
 	}
 	
 	/**
