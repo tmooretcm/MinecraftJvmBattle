@@ -4,7 +4,7 @@ Minecraft OpenJ9 Project
 
 ## Goals
 
-The goal of this project is to measure the performance differences in Minecraft between the default bundled HotSpot JVM and the OpenJ9 JVM. Leveraging Prometheus, Grafana, and Docker, we will measure performance differences between containerized Minecraft servers using the different JVMs in terms of memory footprint, CPU usage, server start/response time, and FPS. 
+The goal of this project is to measure the performance differences in Minecraft between the default bundled HotSpot JVM and the OpenJ9 JVM. Leveraging Prometheus, Grafana, and Docker, we will measure performance differences between containerized Minecraft servers using the different JVMs in terms of memory footprint, CPU usage, and server response time.
 
 ## Getting Started
 
@@ -36,7 +36,7 @@ $ docker-compose down
 
 The four metrics displayed by default on launch of the Grafana service are server health, CPU usage, memory usage, and server response time.
 
-In order to change the metrics displayed, follow these steps:
+In order to change the metrics displayed:
 
 1. Click on the dropdown on one of the panels: for instance, next to either *Minecraft Service - CPU Usage* or *Minecraft Service - Memory Usage*; and hit *Edit* in order to change the metrics displayed.
 2. Under *Metrics browser*, you can 1. select a metric to monitor, 2. select which label the metric will measure - this will be the desired server you want to track - Hotspot or OpenJ9.
