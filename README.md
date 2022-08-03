@@ -18,7 +18,7 @@ Next, you will have to include this repo for file sharing with Docker. Navigate 
 
 #### Running the monitor with Docker
 
-1. Access the /mc/mc-monitor/examples/mc-monitor-prom/ directory.
+1. Access the `mc/mc-monitor/examples/mc-monitor-prom/ directory`.
 2. Run the following command to start the monitor composition:
 ```
 $ docker-compose up -d
