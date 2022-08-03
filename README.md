@@ -42,4 +42,7 @@ In order to change the metrics displayed:
 2. Under *Metrics browser*, you can 1. select a metric to monitor, 2. select which label the metric will measure - this will be the desired server you want to track - Hotspot or OpenJ9.
 
 ## Testing
-Currently, the tests can be run using Eclipse after importing the project. You can right-click the UnitTesting.java class -> Run As -> JUnit to run the tests and view the output.
+To run the JUnit tests: 
+1. Start the monitor by following the steps in the "Running the monitor with Docker" section above. 
+2. Navigate to the Minecraft-OpenJ9-Project base directory. 
+2. Run `mvn clean` and then `mvn test`. Metrics output should be displayed on screen for both servers. 
