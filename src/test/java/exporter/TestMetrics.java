@@ -28,6 +28,7 @@ public class TestMetrics {
 		
 		hotspotMetrics = PrometheusMetricsExporter.getContainerStats(hotspotContainerID).get(); 
 		openj9Metrics = PrometheusMetricsExporter.getContainerStats(openj9ContainerID).get(); 
+		System.out.println("\n"); 
 	}
 	
 	
@@ -42,7 +43,7 @@ public class TestMetrics {
 		assertNotNull(hotspotCPU);
 		assertNotNull(openJ9CPU);
 		
-		System.out.println("CPU usage results:" + "\n" + "HotSpot: " + hotspotCPU + "\n" + "OpenJ9: " + openJ9CPU);	
+		System.out.println("CPU Usage Results:" + "\n" + "HotSpot: " + hotspotCPU + " ns." + "\n" + "OpenJ9: " + openJ9CPU + " ns.");	
 	}
 	
 	@Test 
@@ -50,14 +51,20 @@ public class TestMetrics {
 	 * This test should acquire both the Hotspot and OpenJ9 metrics from the PrometheusMetricsExporter and compare their memory usage. 
 	 */
 	void memoryUsageTest() {
-		Long hotspotMemory = hotspotMetrics.getMemoryStats().getUsage(); 
-		Long openJ9Memory = openj9Metrics.getMemoryStats().getUsage(); 
+		Long hotspotMemoryUsage = hotspotMetrics.getMemoryStats().getUsage(); 
+		Long hotspotMemoryLimit = hotspotMetrics.getMemoryStats().getLimit();
+		Long openJ9MemoryUsage = openj9Metrics.getMemoryStats().getUsage(); 
+		Long openJ9MemoryLimit = openj9Metrics.getMemoryStats().getLimit(); 	
 		
-		assertNotNull(hotspotMemory);
-		assertNotNull(openJ9Memory);
+		assertNotNull(hotspotMemoryUsage);
+		assertNotNull(openJ9MemoryUsage);
+		assertNotNull(hotspotMemoryLimit); 
+		assertNotNull(openJ9MemoryLimit);
+
+		double hotspotMemPct = ((double)hotspotMemoryUsage / hotspotMemoryLimit) * 100; 
+		double openj9MemPct = ((double)openJ9MemoryUsage / openJ9MemoryLimit) * 100; 
 		
-		System.out.println("Memory Usage Results:" + "\n" + "HotSpot: " + hotspotMemory + "\n" + "OpenJ9: " + openJ9Memory);	
-		assertTrue(hotspotMemory > openJ9Memory); 
+		System.out.println("Memory Usage Results:" + "\n" + "HotSpot: " + hotspotMemPct + "%" + "\n" + "OpenJ9: " + openj9MemPct +"%");		
 	}
 	
 	/**
