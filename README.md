@@ -45,4 +45,5 @@ In order to change the metrics displayed:
 To run the JUnit tests: 
 1. Start the monitor by following the steps in the "Running the monitor with Docker" section above. 
 2. Navigate to the Minecraft-OpenJ9-Project base directory. 
-2. Run `mvn clean` and then `mvn test`. Metrics output should be displayed on screen for both servers. 
+3. Run `mvn clean` before every test run (both for the initial test and subsequent tests). 
+4. Run `mvn test`. Test output should be displayed on-screen. If you would like to retest, follow steps 2-4 again. 
